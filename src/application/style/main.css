@@ -1,0 +1,25 @@
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-bottom: 0;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+h2, h3 {
+    color: #34495E;
+}
+
+p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h4 {
+    color: #27AE60;
+    font-weight: 600;
+}
