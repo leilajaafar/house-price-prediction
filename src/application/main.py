@@ -1,4 +1,8 @@
 import streamlit as st
+from PIL import Image
+import base64
+from io import BytesIO
+
 
 
 st.set_page_config(
@@ -8,6 +12,21 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+def image_to_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode()
+
+
+st.markdown("""
+    <style>
+    body, .main, .stApp {
+        background-color: #f8fafc !important;
+        color: #333 !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 st.markdown("""
 <style>
@@ -15,6 +34,11 @@ body, .main {
     background-color: #f8fafc;
     font-family: 'Segoe UI', sans-serif;
     color: #333;
+}
+.logo-img {
+        border-radius: 15px;
+        height: 100px;
+        margin-right: 1.5rem;
 }
 
 /* Réduction du gap supérieur */
@@ -45,32 +69,35 @@ code {
 }
 
 /* En-tête */
-header {
-    display: flex;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-bottom: 2rem;
-}
-header img {
-    height: 50px;
-    margin-right: 1rem;
-}
-header h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #1f2937;
-    margin: 0;
-}
+    header {
+        background-color: #F0F1F5;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        margin-bottom: 2rem;
+    }
+    header h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #D1BB9B;
+        margin: 0;
+    }
 </style>
 """, unsafe_allow_html=True)
+try:
+    logo = Image.open("assets/ESTILOGO.png")
+    logo_base64 = image_to_base64(logo)
+except Exception as e:
+    logo_base64 = ""
+    st.warning(f"Logo image not found or error loading image: {str(e)}")
 
 
-st.markdown("""
+st.markdown(f"""
 <header>
-    <img src="https://cdn-icons-png.flaticon.com/512/619/619034.png" alt="Logo">
-    <h1>Prédicteur de Prix Immobilier</h1>
+    <img src="data:image/png;base64,{logo_base64}" class="logo-img">
+    <h2 style="color: #AF9979; font-weight: bold;">À propos du projet Estimaison</h2>
 </header>
 """, unsafe_allow_html=True)
 
@@ -96,16 +123,14 @@ with st.container():
     st.markdown('<h2 style="color:#1f2937">🔍 Fonctionnalités disponibles</h2>', unsafe_allow_html=True)
     st.markdown("""
 - 🗂️ **Analyse exploratoire (EDA)** : 
-  Visualisez les corrélations, tendances et distributions des variables comme :
-  `OverallQual`, `Neighborhood`, `GarageType`, `GrLivArea`...
+  Visualisez les corrélations, tendances et distributions des variables
 
 - 🧠 **Prédiction intelligente** : 
   Grâce à un modèle entraîné sur des données normalisées, obtenez une **estimation en temps réel** du prix 
   de votre bien en renseignant les caractéristiques essentielles.
 
 - 📚 **Compréhension des données** :
-  Un accès transparent à la signification de chaque variable (ex. `MSSubClass`, `SaleCondition`, etc.)
-  pour mieux comprendre la valeur de chaque logement.
+  Un accès transparent à la signification de chaque variable pour mieux comprendre la valeur de chaque logement.
 
 - 🌐 **Expérience fluide & interactive** : 
   Interface claire, boutons personnalisés, structure responsive.
