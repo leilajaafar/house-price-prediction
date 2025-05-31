@@ -1,0 +1,2 @@
+LotFrontage,Neighborhood,OverallQual,YearBuilt,YearRemodAdd,MasVnrArea,ExterQual,BsmtQual,BsmtExposure,BsmtFinSF1,TotalBsmtSF,HeatingQC,1stFlrSF,GrLivArea,FullBath,KitchenQual,TotRmsAbvGrd,Fireplaces,GarageFinish,GarageCars,GarageArea,WoodDeckSF,OpenPorchSF,output,timestamp
+1700,Gilbert,,1990,2002,,Ex,Gd,Mn,800,,Ex,,,,Fa,4,2,,4,,,300,,2025-05-31 00:59:41.110376
