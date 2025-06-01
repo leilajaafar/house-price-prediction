@@ -18,43 +18,43 @@ def run():
     #st.image(image, use_column_width=False)
     
     add_selectbox = st.sidebar.selectbox(
-    "How would you like to predict?",
-    ("Online", "Batch"))
+    "Comment voulez vous faire la prediction?",
+    ("Online", "CSV"))
 
-    st.sidebar.info('This app is created to predict house prices')
-    st.sidebar.success('https://www.projetpfa.org')
+    st.sidebar.info('Cette app est faite pour prédire les prix des maisons!')
+    #st.sidebar.success('https://www.projetpfa.org')
     
     st.sidebar.image(image_house)
     
-    st.title("House Price Prediction App")
+    st.title("Application de Prédiction des Prix des Maisons")
 
     if add_selectbox == 'Online':
-        OverallQual = st.slider("Overall Quality (1-10)", 1, 10, 5)
-        GarageCars = st.slider("Garage Cars", 0, 5, 1)
-        GarageArea = st.number_input("Garage Area (sq ft)", min_value=0, value=730)
-        ExterQual = st.selectbox("Exterior Quality", ['Ex', 'Gd', 'TA', 'Fa', 'Po'])
-        GarageFinish = st.selectbox("Garage Finish", ['Fin', 'RFn', 'Unf', 'None'])
-        KitchenQual = st.selectbox("Kitchen Quality", ['Ex', 'Gd', 'TA', 'Fa', 'Po'])
-        BsmtQual = st.selectbox("Basement Quality", ['Ex', 'Gd', 'TA', 'Fa', 'Po', 'None'])
-        YearBuilt = st.number_input("Year Built", min_value=1800, max_value=2025, value=1961)
-        TotalBsmtSF = st.number_input("Total Basement SF", min_value=0, value=882)
-        GrLivArea = st.number_input("Above Ground Living Area (sq ft)", min_value=0, value=896)
-        firstFlrSF = st.number_input("1st Floor SF", min_value=0, value=896)
-        FullBath = st.slider("Full Bathrooms", 0, 4, 1)
-        YearRemodAdd = st.number_input("Year Remodeled", min_value=1800, max_value=2025, value=1961)
-        Fireplaces = st.slider("Number of Fireplaces", 0, 5, 0)
-        HeatingQC = st.selectbox("Heating Quality", ['Ex', 'Gd', 'TA', 'Fa', 'Po'])
-        TotRmsAbvGrd = st.slider("Total Rooms Above Grade", 1, 15, 5)
-        MasVnrArea = st.number_input("Masonry Veneer Area (sq ft)", min_value=0, value=0)
-        BsmtFinSF1 = st.number_input("Basement Finished SF 1", min_value=0, value=468)
-        BsmtExposure = st.selectbox("Basement Exposure", ['Gd', 'Av', 'Mn', 'No', 'None'])
-        LotFrontage = st.number_input("Lot Frontage", min_value=0, value=80)
-        WoodDeckSF = st.number_input("Wood Deck SF", min_value=0, value=140)
-        OpenPorchSF = st.number_input("Open Porch SF", min_value=0, value=0)
-        Neighborhood = st.selectbox("Neighborhood", [
+        OverallQual = st.slider("Qualité Globale (1-10)", 1, 10, 5)
+        GarageCars = st.slider("Garage Voitures", 0, 5, 1)
+        GarageArea = st.number_input("Surface du Garage (sq ft)", min_value=0, value=730)
+        ExterQual = st.selectbox("Qualité d'Exterieur", ['Ex', 'Gd', 'TA', 'Fa', 'Po'], help="Ex: Excellent, Gd: Bon, TA: Moyen, Fa: Passable, Po: Mauvais")
+        GarageFinish = st.selectbox("Etat du Garage", ['Fin', 'RFn', 'Unf', 'None'], help="Fin: Fini, RFn: Semi-fini, Unf: Non fini, NA: Pas de garage")
+        KitchenQual = st.selectbox("Qualité de Cuisine", ['Ex', 'Gd', 'TA', 'Fa', 'Po'], help="Ex: Excellent, Gd: Bon, TA: Moyen, Fa: Passable, Po: Mauvais")
+        BsmtQual = st.selectbox("Qualité du Sous-sol", ['Ex', 'Gd', 'TA', 'Fa', 'Po', 'None'], help="Ex: Excellent (>254 cm), Gd: Bon (229,251 cm), TA: Typique (203,226 cm), Fa: Passable (178,201 cm), Po: Mauvais (<178 cm), NA: Pas de sous-sol")
+        YearBuilt = st.number_input("Année Construit", min_value=1800, max_value=2025, value=1961)
+        TotalBsmtSF = st.number_input("Sous-sol Total SF", min_value=0, value=882)
+        GrLivArea = st.number_input("Espace de Vie Au Dessus (sq ft)", min_value=0, value=896)
+        firstFlrSF = st.number_input("1er Etage SF", min_value=0, value=896)
+        FullBath = st.slider("Salles de Bain Totals", 0, 5, 1)
+        YearRemodAdd = st.number_input("Année Rénovée", min_value=1800, max_value=2025, value=1961)
+        Fireplaces = st.slider("Nombre de Cheminées", 0, 6, 0)
+        HeatingQC = st.selectbox("Qualité du Chauffage", ['Ex', 'Gd', 'TA', 'Fa', 'Po'], help="Ex: Excellent, Gd: Bon, TA: Moyen, Fa: Passable, Po: Mauvais")
+        TotRmsAbvGrd = st.slider("Nombre Total de Pieces Hors Sol", 1, 16, 5)
+        MasVnrArea = st.number_input("Placage de Maçonnerie (sq ft)", min_value=0, value=0)
+        BsmtFinSF1 = st.number_input("Sous-sol Fini SF 1", min_value=0, value=468)
+        BsmtExposure = st.selectbox("Exposition Sous-sol", ['Gd', 'Av', 'Mn', 'No', 'None'], help="Gd: Bonne exposition, Av: Moyenne, Mn: Minimale, No: Aucune exposition, NA: Pas de sous-sol")
+        LotFrontage = st.number_input("Façade de Terrain", min_value=0, value=80)
+        WoodDeckSF = st.number_input("Terrasse en Bois SF", min_value=0, value=140)
+        OpenPorchSF = st.number_input("Véranda ouverte SF", min_value=0, value=0)
+        Neighborhood = st.selectbox("Quartier", [
             'NAmes', 'CollgCr', 'OldTown', 'Edwards', 'Somerst', 'Sawyer', 'NridgHt', 'NWAmes', 'Mitchel',
             'Timber', 'ClearCr', 'Crawfor', 'BrkSide', 'IDOTRR', 'MeadowV', 'Blmngtn', 'SWISU', 'NPkVill',
-            'Blueste', 'Veenker', 'Gilbert', 'NoRidge', 'StoneBr'
+            'Blueste', 'Veenker', 'Gilbert', 'NoRidge', 'StoneBr', 'SawyerW', 'BrDale'
             ])
         
         output=""
@@ -91,11 +91,11 @@ def run():
             output = predict(model=model, input_df=input_df)
             output = '$' + str(output)
         
-        st.success('The output is {}'.format(output))
+        st.success('Le prix de votre maison est de {}'.format(output))
 
-    if add_selectbox == 'Batch':
+    if add_selectbox == 'CSV':
 
-        file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
+        file_upload = st.file_uploader("Upload un fichier csv pour la prediction", type=["csv"])
         
         if file_upload is not None:
             data = pd.read_csv(file_upload)
