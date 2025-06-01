@@ -38,7 +38,8 @@ st.markdown("""
 
 try:
     #logo = Image.open(../assets/ESTILOGO.png")
-    logo = Image.open(r"C:\Users\leila\Downloads\pfaproject\house-price-prediction\src\application\assets\ESTILOGO.png")
+    #logo = Image.open(r"C:\Users\leila\Downloads\pfaproject\house-price-prediction\src\application\assets\ESTILOGO.png")
+    logo = Image.open("src/application/assets/ESTILOGO.png")
     logo_base64 = image_to_base64(logo)
 except:
     logo_base64 = ""
@@ -54,7 +55,8 @@ st.markdown(f"""
 @st.cache_data
 def load_data():
     #df = pd.read_csv("../used_data/EDA_set.csv")
-    df = pd.read_csv(r"C:\Users\leila\Downloads\pfaproject\house-price-prediction\src\application\used_data\EDA_set.csv")
+    #df = pd.read_csv(r"C:\Users\leila\Downloads\pfaproject\house-price-prediction\src\application\used_data\EDA_set.csv")
+    df = pd.read_csv("src/application/used_data/EDA_set.csv")
     return df
 
 df = load_data()
