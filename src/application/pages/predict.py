@@ -14,7 +14,8 @@ def predict(model, input_df):
 def run():
     from PIL import Image
     #image = Image.open(r'C:\Users\leila\Downloads\pfaproject\house-price-prediction\src\application\assets\ESTILOGO.png')
-    image_house = Image.open(r'C:\Users\leila\Downloads\pfaproject\house-price-prediction\src\application\assets\house1.png')
+    #image_house = Image.open(r'C:\Users\leila\Downloads\pfaproject\house-price-prediction\src\application\assets\house1.png')
+    image_house = Image.open('src/application/assets/house1.png')
 
     #st.image(image, use_column_width=False)
     
