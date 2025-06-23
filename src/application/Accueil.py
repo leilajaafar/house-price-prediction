@@ -1,10 +1,12 @@
+# Accueil.py - Version sécurisée
 import streamlit as st
 from PIL import Image
 import base64
 from io import BytesIO
+import sys
+from pathlib import Path
 
-
-
+# --- Configuration de la page (DOIT être la première commande) ---
 st.set_page_config(
     page_title="🏡 Prédicteur de Prix Immobilier",
     page_icon="🏡",
@@ -12,21 +14,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# --- Initialisation sécurisée de la session ---
+if 'authenticated' not in st.session_state:
+    st.session_state.update({
+        'authenticated': False,
+        'user': {'username': ''}  # Structure minimale garantie
+    })
+
+# --- Fonctions utilitaires ---
 def image_to_base64(image):
     buffered = BytesIO()
     image.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode()
 
-
+# --- CSS Personnalisé ---
 st.markdown("""
     <style>
     body, .main, .stApp {
+    
         background-color: #f8fafc !important;
         color: #333 !important;
     }
     </style>
 """, unsafe_allow_html=True)
-
 
 st.markdown("""
 <style>
@@ -86,20 +96,49 @@ code {
     }
 </style>
 """, unsafe_allow_html=True)
+
+# --- Gestion de l'authentification ---
+if not st.session_state.get('authenticated', False):
+    try:
+        logo = Image.open("assets/ESTILOGO.png")
+        logo_base64 = image_to_base64(logo)
+        st.markdown(f"""
+        <header>
+            <img src="data:image/png;base64,{logo_base64}" class="logo-img">
+            <h2 style="color: #AF9979; font-weight: bold;">Connexion à Estimaison</h2>
+        </header>
+        """, unsafe_allow_html=True)
+    except Exception as e:
+        st.warning(f"Logo non trouvé : {str(e)}")
+    
+    from pages.Se_connecter import show_login_form
+    show_login_form()
+    st.stop()
+
+# --- Contenu après authentification (version sécurisée) ---
 try:
-    logo = Image.open("assets/ESTILOGO.png")
-    logo_base64 = image_to_base64(logo)
+    username = st.session_state.get('user', {}).get('username', 'Invité')
+    st.markdown(f"""
+    <header>
+        <img src="data:image/png;base64,{image_to_base64(Image.open("assets/ESTILOGO.png"))}" class="logo-img">
+        <h2 style="color: #AF9979; font-weight: bold;">Bienvenue {username}</h2>
+    </header>
+    """, unsafe_allow_html=True)
 except Exception as e:
-    logo_base64 = ""
-    st.warning(f"Logo image not found or error loading image: {str(e)}")
+    st.error(f"Erreur de chargement : {str(e)}")
+    st.stop()
 
-
-st.markdown(f"""
-<header>
-    <img src="data:image/png;base64,{logo_base64}" class="logo-img">
-    <h2 style="color: #AF9979; font-weight: bold;">À propos du projet Estimaison</h2>
-</header>
-""", unsafe_allow_html=True)
+# Sidebar sécurisée
+with st.sidebar:
+    username = st.session_state.get('user', {}).get('username', 'Invité')
+    st.write(f"Connecté en tant que : **{username}**")
+    
+    if st.button("Déconnexion"):
+        st.session_state.update({
+            'authenticated': False,
+            'user': {'username': ''}
+        })
+        st.rerun()
 
 
 st.markdown("""
@@ -110,11 +149,6 @@ st.markdown("""
         Elle s’appuie sur un jeu de données riche issu de ventes à Ames (Iowa), intégrant plus de 70 caractéristiques 
         comme la surface habitable, la qualité de la cuisine, le quartier, le type de garage ou encore l’année de construction.
     </p>
-    <br/>
-    <p style="font-size: 1rem; color: #6b7280;">
-        Grâce à cette plateforme, vous pouvez explorer les tendances du marché, visualiser les corrélations 
-        entre les attributs, et obtenir une estimation personnalisée du prix d’une maison.
-    </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -123,11 +157,11 @@ with st.container():
     st.markdown('<h2 style="color:#1f2937">🔍 Fonctionnalités disponibles</h2>', unsafe_allow_html=True)
     st.markdown("""
 - 🗂️ **Analyse exploratoire (EDA)** : 
-  Visualisez les corrélations, tendances et distributions des variables
+  Visualisez et filtrez les données selon différents critères tels que le quartier ou la taille des maisons.
 
 - 🧠 **Prédiction intelligente** : 
   Grâce à un modèle entraîné sur des données normalisées, obtenez une **estimation en temps réel** du prix 
-  de votre bien en renseignant les caractéristiques essentielles.
+  de votre bien.
 
 - 📚 **Compréhension des données** :
   Un accès transparent à la signification de chaque variable pour mieux comprendre la valeur de chaque logement.
@@ -139,3 +173,4 @@ with st.container():
 🟢 **Commencez dès maintenant** en sélectionnant un onglet dans le menu de gauche.
     """)
     st.markdown('</div>', unsafe_allow_html=True)
+
