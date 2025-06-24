@@ -100,7 +100,8 @@ code {
 # --- Gestion de l'authentification ---
 if not st.session_state.get('authenticated', False):
     try:
-        logo = Image.open("assets/ESTILOGO.png")
+        #logo = Image.open("assets/ESTILOGO.png")
+        logo = Image.open("src/application/assets/ESTILOGO.png")
         logo_base64 = image_to_base64(logo)
         st.markdown(f"""
         <header>
@@ -120,7 +121,7 @@ try:
     username = st.session_state.get('user', {}).get('username', 'Invité')
     st.markdown(f"""
     <header>
-        <img src="data:image/png;base64,{image_to_base64(Image.open("assets/ESTILOGO.png"))}" class="logo-img">
+        <img src="data:image/png;base64,{image_to_base64(Image.open("src/application/assets/ESTILOGO.png"))}" class="logo-img">
         <h2 style="color: #AF9979; font-weight: bold;">Bienvenue {username}</h2>
     </header>
     """, unsafe_allow_html=True)
