@@ -4,7 +4,8 @@ import numpy as np
 from pycaret.regression import load_model, predict_model
 
 #model = load_model(r'/Users/macbook/house-price-prediction/notebooks/dimensionality reduction/finalmodel')
-model = load_model('../../notebooks/dimensionality reduction/finalmodel')
+#model = load_model('../../notebooks/dimensionality reduction/finalmodel')
+model = load_model('notebooks/dimensionality reduction/finalmodel')
 
 def predict(model, input_df):
     predictions_df = predict_model(estimator=model, data=input_df)
