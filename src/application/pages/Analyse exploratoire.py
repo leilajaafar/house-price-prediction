@@ -52,7 +52,8 @@ st.markdown(f"""
 # Chargement des données
 @st.cache_data
 def load_data():
-    df = pd.read_csv("./used_data/EDA_set.csv")
+    #df = pd.read_csv("./used_data/EDA_set.csv")
+    df = pd.read_csv("src/application/used_data/EDA_set.csv")
     return df
 
 df = load_data()
