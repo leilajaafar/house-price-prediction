@@ -82,7 +82,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 try:
     #logo = Image.open("assets/ESTILOGO.png")
-    logo = Image.open("application/assets/ESTILOGO.png")
+    logo = Image.open("../assets/ESTILOGO.png")
     logo_base64 = image_to_base64(logo)
 except Exception as e:
     logo_base64 = ""
