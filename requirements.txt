@@ -1,0 +1,2 @@
+pycaret[full]==3.3.2
+streamlit==1.45.1
